@@ -38,8 +38,10 @@ def train_fn(env_name="coinrun",
         format_strs = ['csv', 'stdout'] if comm.Get_rank() == 0 else []
         logger.configure(comm=comm, dir=log_dir, format_strs=format_strs)
 
-    venv = get_venv(num_envs=num_envs, env_name=env_name, distribution_mode=distribution_mode)
-
+    #venv = get_venv(num_envs=num_envs, env_name=env_name, distribution_mode=distribution_mode)
+    import gym
+    venv = gym.make('HalfCheetah-v2')
+    
     enc_fn = lambda obtype: ImpalaEncoder(
         obtype.shape,
         outsize=256,
